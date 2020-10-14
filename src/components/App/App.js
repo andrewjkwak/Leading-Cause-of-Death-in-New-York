@@ -5,6 +5,7 @@ import { formatData, parseTime } from "../../service";
 import { Container, Main } from "./AppStyles";
 
 import LineChart from "../LineChart/LineChart";
+import BarChart from "../BarChart/BarChart";
 
 const App = () => {
   const [data, setData] = useState([]);
@@ -13,6 +14,7 @@ const App = () => {
     const retrieveDataset = async () => {
       const dataset = await d3.csv(nyc_deaths, formatData);
       setData(dataset);
+      console.log(dataset);
     };
     retrieveDataset();
   }, []);
@@ -26,6 +28,11 @@ const App = () => {
         <LineChart
           data={ data }
           xAccessor={ d => parseTime(d.year) }
+          yAccessor={ d => d.deaths }
+        />
+        <BarChart
+          data={ data }
+          xAccessor={ d => d.leadingCause }
           yAccessor={ d => d.deaths }
         />
       </Main>

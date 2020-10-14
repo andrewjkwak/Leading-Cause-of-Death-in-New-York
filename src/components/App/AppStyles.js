@@ -12,4 +12,5 @@ export const Container = styled.div`
 
 export const Main = styled.main`
   flex: 1 0 0;
+  padding: 20px;
 `;

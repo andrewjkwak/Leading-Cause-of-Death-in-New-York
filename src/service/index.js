@@ -57,16 +57,14 @@ export const useChartDimensions = passedDimensions => {
   return [ref, newDimensions];
 };
 
-export const getDeathsPerYearData = data => {
-  const deathsPerYear = {};
+export const getDeathsPerValueData = (data, value) => {
+  const deathsPerValue = {};
   data.forEach(d => {
-    deathsPerYear[d.year] = deathsPerYear[d.year] + d.deaths || 0
+    deathsPerValue[d[value]] = deathsPerValue[d[value]] + d.deaths || 0
   });
-
-  const dataset = Object.entries(deathsPerYear).map(([year, deaths]) => ({
-    year,
-    deaths
+  const dataset = Object.entries(deathsPerValue).map(([k, v]) => ({
+    [value]: k,
+    deaths: v
   }));
-
   return dataset;
 };

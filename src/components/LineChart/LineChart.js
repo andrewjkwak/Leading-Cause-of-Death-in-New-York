@@ -2,7 +2,7 @@ import React from "react";
 import * as d3 from "d3";
 import { useChartDimensions } from "../../service";
 import { LineChartWrapper } from "./LineChartStyles";
-import { getDeathsPerYearData } from "../../service";
+import { getDeathsPerValueData } from "../../service";
 
 import Chart from "../Chart/Chart";
 import Line from "../Chart/Line";
@@ -17,15 +17,11 @@ import Axis from "../Chart/Axis";
 
 const LineChart = ({ data, xAccessor, yAccessor, label }) => {
   const [ref, dimensions] = useChartDimensions();
-  const dataset = getDeathsPerYearData(data);
-
-  console.log(dataset);
+  const dataset = getDeathsPerValueData(data, "year");
 
   const xScale = d3.scaleTime()
     .domain(d3.extent(dataset, xAccessor))
     .range([0, dimensions.boundedWidth]);
-
-  console.log(xScale.ticks());
 
   const yScale = d3.scaleLinear()
     .domain(d3.extent(dataset, yAccessor))
